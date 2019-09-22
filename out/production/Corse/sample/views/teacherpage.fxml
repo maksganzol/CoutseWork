@@ -10,19 +10,10 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.TeacherPageController">
   <children>
     <Label fx:id="hello" layoutX="25.0" layoutY="24.0" text="" />
-    <Button id="startbutton" fx:id="addMaterial" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Готово" />
-    <TextArea fx:id="area" layoutX="14.0" layoutY="42.0" prefHeight="226.0" prefWidth="572.0" promptText="Порция учебного материала" wrapText="true" />
+    <Button id="startbutton" fx:id="all" layoutX="18.0" layoutY="21.0" mnemonicParsing="false" prefWidth="120.0" text="Все студенты" />
     <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
-    <TextField fx:id="materialTitle" layoutX="14.0" layoutY="14.0" prefWidth="125.0" promptText="Тема материала" />
-    <TextField fx:id="questTitle" layoutX="14.0" layoutY="275.0" prefWidth="125.0" promptText="Тема вопроса" />
-    <Button fx:id="addQuest" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" text="Добавить" />
-    <TextField fx:id="questField" layoutX="14.0" layoutY="312.0" prefWidth="572.0" promptText="Вопрос" />
-    <TextField fx:id="correctAnsw" layoutX="14.0" layoutY="348.0" prefWidth="179.0" promptText="Правильный ответ">
-      <effect>
-        <ColorAdjust brightness="-0.04580152671755722" contrast="-0.04580152671755722" hue="0.7404580152671758" saturation="0.43511450381679406" />
-      </effect>
-    </TextField>
-    <TextField fx:id="answ1" layoutX="211.0" layoutY="348.0" prefWidth="179.0" promptText="Неправильный" />
-    <TextField fx:id="answ2" layoutX="407.0" layoutY="348.0" prefWidth="179.0" promptText="Неправильный" />
+    <Button id="addQuest" fx:id="one" layoutX="150.0" layoutY="21.0" mnemonicParsing="false" prefWidth="136.0" text="Конкретный студент" />
+    <TextField id="answ2" fx:id="initials" layoutX="293.0" layoutY="21.0" prefWidth="179.0" promptText="Имя и фамилия" />
+    <TextArea fx:id="students" layoutX="18.0" layoutY="60.0" prefHeight="315.0" prefWidth="568.0" wrapText="true" />
   </children>
 </AnchorPane>

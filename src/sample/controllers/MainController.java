@@ -66,6 +66,9 @@ public class MainController {
     private TeacherService teacherService;
 
     @FXML
+    private Label edit;
+
+    @FXML
     void initialize() {
 
         teacherService = new TeacherService();
@@ -167,6 +170,16 @@ public class MainController {
         stage.setScene(new Scene((Pane)loader.load()));
         StudentPageController controller = (StudentPageController)loader.getController();
         controller.initData(student, service);
+        stage.showAndWait();
+        return stage;
+    }
+
+    public Stage showMaterialInputPage() throws IOException {
+        loginbutton.getScene().getWindow().hide();
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/materialinput.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane)loader.load()));
+        MaterialInputPageController controller = (MaterialInputPageController)loader.getController();
         stage.showAndWait();
         return stage;
     }

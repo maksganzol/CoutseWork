@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane alignment="CENTER" hgap="10.0" prefHeight="406.999977929685" prefWidth="497.9998779296875" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.Controller">
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="406.999977929685" prefWidth="497.9998779296875" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.MainController">
   <children>
     <Pane prefHeight="406.999977929685" prefWidth="497.9998779296875" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <children>
@@ -23,6 +23,7 @@
         <PasswordField fx:id="tpassword" layoutX="283.0" layoutY="155.0" prefWidth="200.0" promptText="Пароль" visible="false" />
         <Button fx:id="loginbutton" layoutX="221.0" layoutY="295.0" mnemonicParsing="false" onAction="#logIn" text="Войти" visible="false" />
         <Label fx:id="warning" layoutX="235.0" layoutY="330.0" text="" textFill="RED" />
+        <Label fx:id="edit" layoutX="141.0" layoutY="340.0" onMouseClicked="#showMaterialInputPage" text="Редактировать учебный материал" textFill="#0029ff" />
       </children>
     </Pane>
   </children>

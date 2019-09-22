@@ -15,8 +15,14 @@
     <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
     <Label fx:id="totalMark" layoutX="481.0" layoutY="57.0" prefWidth="50.0" text="">
       <font>
-        <Font size="16.0" />
+        <Font size="16.0" fx:id="x1" />
       </font>
     </Label>
+    <Label fx:id="total" layoutX="26.0" layoutY="94.0" prefWidth="519.0" text="">
+      <font>
+        <Font size="20.0" />
+      </font>
+    </Label>
+    <Label fx:id="titleLabel" font="$x1" layoutX="250.0" layoutY="57.0" text="" />
   </children>
 </AnchorPane>

@@ -1,4 +1,5 @@
 package sample.models;
 
-public interface ForEachHandeler {
+public interface ForEachHandler {
+    void handle(String p);
 }

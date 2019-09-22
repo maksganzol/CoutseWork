@@ -7,50 +7,60 @@ import java.util.*;
  */
 public class StudyMaterial {
 
-    private Map<String, List<String>> material;
-    private int size = 0;
+    private List<Material> materials;
     private int portionQuant = 0;
 
     public StudyMaterial() {
-        material = new HashMap<>();
+        materials = new ArrayList<>();
     }
 
-    public StudyMaterial(Map<String, List<String>> material) {
-        this.material = material;
-        size = material.size();
-        material.keySet().forEach(s -> {
-            material.get(s).forEach(str->{
-                portionQuant++;
+    public StudyMaterial(List<Material> materials) {
+        this.materials = materials;
+        materials.forEach(material->{
+            material.forEach(portion ->{
+                portionQuant++; //Needs tests
             });
         });
     }
 
-    public String getPortion(String title, int i){
-        return material.get(title).get(i);
+    public String getPortionByTitle(String title, int i){
+        for(Material m: materials) {
+            if (m.getTitle().equals(title)) {
+                return m.getPortion(i);
+            }
+        }
+        return null;
     }
 
     public void addPortion(String title, String content){
-        List<String> paragraph = material.get(title);
-        if(paragraph==null) {
-            paragraph = new ArrayList<>();
-            paragraph.add(content);
-            material.put(title, paragraph);
-            size++;
-        } else paragraph.add(content);
+        for(Material m: materials) {
+            if (m.getTitle().equals(title)) {
+                m.addPortion(content);
+                return;
+            }
+        }
+        Material newMaterial = new Material(title);
+        newMaterial.addPortion(content);
+        materials.add(newMaterial);
         portionQuant++;
     }
 
     public int getSize() {
-        return size;
+        return materials.size();
     }
 
-    public Set<String> getThemeSet(){
-        return material.keySet();
+    public Material getMaterial(int index){
+        return materials.get(index);
     }
 
-    public int getCountOfPortion(String theme){
-        return  material.get(theme).size();
+    public int getCountOfPortion(String title){
+        for(Material m: materials) {
+            if (m.getTitle().equals(title))
+                return m.size();
+        }
+        return 0;
     }
+
     public int getPortionQuant(){
         return portionQuant;
     }

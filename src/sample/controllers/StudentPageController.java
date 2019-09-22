@@ -17,6 +17,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import sample.models.Material;
 import sample.models.Question;
 import sample.models.Student;
 import sample.services.StudentService;
@@ -25,6 +26,8 @@ import sample.services.StudyMaterialsService;
 
 public class StudentPageController {
 
+    @FXML
+    private Label total;
     @FXML
     private Label hello;
 
@@ -46,20 +49,17 @@ public class StudentPageController {
     @FXML
     private Button startbutton;
 
+    @FXML
+    private Label titleLabel;
+
     private Student student;
 
     private StudyMaterialsService service;
-    private List<String> themeSet;
-    private int count = 0; //Считает номер темы
-    private int currentPortion = 0;
-    private int countOfPortion = 0;
-    private boolean isLast = false;
     private StudentService studentService;
 
     @FXML
     void initialize() {
         service = new StudyMaterialsService();
-        themeSet = new ArrayList<>(service.getThemeSet());
     }
 
     public void initData(Student student, StudentService service){
@@ -69,25 +69,21 @@ public class StudentPageController {
     }
 
     public void startStudying() throws IOException {
-        if (!isLast) {
-            //pages.setText(service.getQuantityReadPages());//некорректно работает
-            if (count < service.getStudyMaterials().getSize()) {
-                currentPortion = service.getNumberOfPortion();
-                countOfPortion = service.getCountOfPortion(themeSet.get(count));
-                area.setText(service.getPortionOfMaterial(themeSet.get(count)));
-            }
-            if ((currentPortion == 1) && count != 0) {//если все темы прочитанны, то пускаем вопросы
-                //if(isLast)  startbutton.getScene().getWindow().hide();
-                tests(themeSet.get(count - 1));
-            }
-            if (count == themeSet.size())
-                isLast = true;
-            if ((currentPortion == countOfPortion) && (count <= themeSet.size() + 1)) {//если все темы прочитанны, то меняем счетчиk темы
-                count++;
-            }
-            startbutton.setText("След. раздел");
-        } else {
+        startbutton.setText("След. раздел");
+        if(service.isLastPortionInMaterial()) {
             showTotalPage(student, studentService);
+        } else {
+            String portion = service.getPortionOfMaterial();
+            String title = service.getCurrentTitle();
+            titleLabel.setText(title);
+            if (service.isLastPortionInTopic(portion)) {
+                try {
+                    tests(title);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            area.setText(portion);
         }
     }
 
@@ -101,16 +97,11 @@ public class StudentPageController {
         return stage;
     }
 
-    private Stage showTotalPage(Student student, StudentService service) throws IOException {
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/totalmark.fxml"));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(new Scene((Pane)loader.load()));
-        TotalMarkController controller = (TotalMarkController) loader.getController();
-        controller.initData(service, student);
-        stage.showAndWait();
-        return stage;
+    private void showTotalPage(Student student, StudentService service) throws IOException {
+        area.setVisible(false);
+        startbutton.setVisible(false);
+        total.setText(studentService.getTotalStatement(student));
     }
-//TODO доделать переход на страницу с оценкой
 
 
 }

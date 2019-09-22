@@ -23,6 +23,7 @@
         <PasswordField fx:id="tpassword" layoutX="283.0" layoutY="155.0" prefWidth="200.0" promptText="Пароль" visible="false" />
         <Button fx:id="loginbutton" layoutX="221.0" layoutY="295.0" mnemonicParsing="false" onAction="#logIn" text="Войти" visible="false" />
         <Label fx:id="warning" layoutX="235.0" layoutY="330.0" text="" textFill="RED" />
+        <Label fx:id="edit" layoutX="141.0" layoutY="340.0" onMouseClicked="#showMaterialInputPage" text="Редактировать учебный материал" textFill="#0029ff" />
       </children>
     </Pane>
   </children>

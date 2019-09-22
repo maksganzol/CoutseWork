@@ -1,6 +1,7 @@
 package sample.dao;
 
 
+import sample.models.Material;
 import sample.models.StudyMaterial;
 
 import java.io.*;
@@ -23,25 +24,30 @@ public class StudyMaterialDao {
 
     public StudyMaterial getMaterial(){
 
-        Map<String, List<String>> material = new HashMap<>();
-
+       List<Material> materials = new ArrayList<>();
         try {
             Files.lines(Paths.get(path)).forEach(
                 s -> {
-                    String theme = s.split("&")[0];
-                    List<String> portions = material.get(theme);
-                    if(portions!=null)
-                        portions.add(s.split("&")[1]);
-                    else {
-                        portions = new ArrayList<>();
-                        portions.add(s.split("&")[1]);
-                        material.put(theme, portions);
+                    boolean addTitle = false;
+                    String title = s.split("&")[0];
+                    List<String> portions = new ArrayList<>();
+                    for(Material m: materials) {
+                        if (m.getTitle().equals(title)) {
+                            m.addPortion(s.split("&")[1]);
+                            addTitle = true;
+                            break;
+                        }
                     }
-                });
+                    if(!addTitle) {
+                        Material material = new Material(title);
+                        materials.add(material);
+                        material.addPortion(s.split("&")[1]);
+                    }
+                    });
         } catch (IOException exc) {
             exc.printStackTrace();
         }
-        return new StudyMaterial(material);
+        return new StudyMaterial(materials);
     }
 
     public void addPortionOfMaterial(String title, String material){
