@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane alignment="CENTER" hgap="10.0" prefHeight="406.999977929685" prefWidth="497.9998779296875" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.MainController">
+  <children>
+    <Pane prefHeight="406.999977929685" prefWidth="497.9998779296875" GridPane.columnIndex="0" GridPane.rowIndex="0">
+      <children>
+        <Label layoutX="172.0" layoutY="24.0" prefHeight="20.961029052734375" prefWidth="153.0" text="Добро пожаловать!" />
+        <Button fx:id="asstudent" layoutX="31.0" layoutY="68.0" mnemonicParsing="false" onAction="#asStudent" text="Войти как студент" />
+        <Button fx:id="asteacher" layoutX="283.0" layoutY="68.0" mnemonicParsing="false" onAction="#asTeacher" text="Войти как преподаватель" />
+        <TextField fx:id="stname" disable="false" layoutX="31.0" layoutY="118.0" prefWidth="200.0" promptText="Имя" visible="false" />
+        <TextField fx:id="stlastname" layoutX="31.0" layoutY="155.0" prefWidth="200.0" promptText="Фамилия" visible="false" />
+        <TextField fx:id="stlogin" layoutX="31.0" layoutY="192.0" prefWidth="200.0" promptText="Логин" visible="false" />
+        <TextField fx:id="tlogin" layoutX="283.0" layoutY="118.0" prefWidth="200.0" promptText="Логин" text="" visible="false" />
+        <PasswordField fx:id="stpassword" layoutX="31.0" layoutY="228.0" prefWidth="200.0" promptText="Пароль" visible="false" />
+        <PasswordField fx:id="tpassword" layoutX="283.0" layoutY="155.0" prefWidth="200.0" promptText="Пароль" visible="false" />
+        <Button fx:id="loginbutton" layoutX="221.0" layoutY="295.0" mnemonicParsing="false" onAction="#logIn" text="Войти" visible="false" />
+        <Label fx:id="warning" layoutX="235.0" layoutY="330.0" text="" textFill="RED" />
+      </children>
+    </Pane>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+</GridPane>

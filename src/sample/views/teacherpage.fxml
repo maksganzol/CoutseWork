@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.TeacherPageController">
+  <children>
+    <Label fx:id="hello" layoutX="25.0" layoutY="24.0" text="" />
+    <Button id="startbutton" fx:id="all" layoutX="18.0" layoutY="21.0" mnemonicParsing="false" prefWidth="120.0" text="Все студенты" />
+    <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
+    <Button id="addQuest" fx:id="one" layoutX="150.0" layoutY="21.0" mnemonicParsing="false" prefWidth="136.0" text="Конкретный студент" />
+    <TextField id="answ2" fx:id="initials" layoutX="293.0" layoutY="21.0" prefWidth="179.0" promptText="Имя и фамилия" />
+    <TextArea fx:id="students" layoutX="18.0" layoutY="60.0" prefHeight="315.0" prefWidth="568.0" wrapText="true" />
+  </children>
+</AnchorPane>

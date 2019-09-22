@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.MaterialInputPageController">
+  <children>
+    <Label fx:id="hello" layoutX="25.0" layoutY="24.0" text="" />
+    <Button id="startbutton" fx:id="addMaterial" onAction="#addPortion" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Готово" />
+    <TextArea fx:id="area" layoutX="14.0" layoutY="36.0" prefHeight="226.0" prefWidth="572.0" promptText="Порция учебного материала" wrapText="true" />
+    <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
+    <TextField fx:id="materialTitle" layoutX="14.0" layoutY="14.0" prefWidth="125.0" promptText="Тема материала" />
+    <TextField fx:id="questTitle" layoutX="14.0" layoutY="275.0" prefWidth="125.0" promptText="Тема вопроса" />
+    <Button fx:id="addQuest"  onAction="#addQuestion" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" text="Добавить" />
+    <TextField fx:id="questField" layoutX="14.0" layoutY="312.0" prefWidth="572.0" promptText="Вопрос" />
+    <TextField fx:id="correctAnsw" layoutX="14.0" layoutY="348.0" prefWidth="179.0" promptText="Правильный ответ">
+      <effect>
+        <ColorAdjust brightness="-0.04580152671755722" contrast="-0.04580152671755722" hue="0.7404580152671758" saturation="0.43511450381679406" />
+      </effect>
+    </TextField>
+    <TextField fx:id="answ1" layoutX="211.0" layoutY="348.0" prefWidth="179.0" promptText="Неправильный" />
+    <TextField fx:id="answ2" layoutX="407.0" layoutY="348.0" prefWidth="179.0" promptText="Неправильный" />
+  </children>
+</AnchorPane>
