@@ -1,20 +1,18 @@
-package sample.dao;
+package sample.repositories;
 
 import sample.exceptions.UserAlreadyExistsException;
-import sample.models.Student;
 import sample.models.Teacher;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class TeacherDao {
+public class TeacherRepository {
 
     private FileWriter writer;
     private String path = "teachers.txt";
 
-    public TeacherDao(){
+    public TeacherRepository(){
 
     }
 

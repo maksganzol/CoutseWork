@@ -5,10 +5,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.dao.StudentDao;
-import sample.dao.StudyMaterialDao;
-import sample.models.Student;
-import sample.services.StudentService;
 //1.1, 2.6, 3.6, 4.4, 5.3
 public class Main extends Application {
 

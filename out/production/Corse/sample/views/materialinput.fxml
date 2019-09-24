@@ -10,12 +10,12 @@
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.MaterialInputPageController">
   <children>
     <Label fx:id="hello" layoutX="25.0" layoutY="24.0" text="" />
-    <Button id="startbutton" fx:id="addMaterial" onAction="#addPortion" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" text="Готово" />
-    <TextArea fx:id="area" layoutX="14.0" layoutY="36.0" prefHeight="226.0" prefWidth="572.0" promptText="Порция учебного материала" wrapText="true" />
+    <Button id="startbutton" fx:id="addMaterial" layoutX="148.0" layoutY="14.0" mnemonicParsing="false" onAction="#addPortion" text="Готово" />
+    <TextArea fx:id="area" layoutX="14.0" layoutY="41.0" prefHeight="226.0" prefWidth="572.0" promptText="Порция учебного материала" wrapText="true" />
     <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
     <TextField fx:id="materialTitle" layoutX="14.0" layoutY="14.0" prefWidth="125.0" promptText="Тема материала" />
     <TextField fx:id="questTitle" layoutX="14.0" layoutY="275.0" prefWidth="125.0" promptText="Тема вопроса" />
-    <Button fx:id="addQuest"  onAction="#addQuestion" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" text="Добавить" />
+    <Button fx:id="addQuest" layoutX="148.0" layoutY="276.0" mnemonicParsing="false" onAction="#addQuestion" text="Добавить" />
     <TextField fx:id="questField" layoutX="14.0" layoutY="312.0" prefWidth="572.0" promptText="Вопрос" />
     <TextField fx:id="correctAnsw" layoutX="14.0" layoutY="348.0" prefWidth="179.0" promptText="Правильный ответ">
       <effect>

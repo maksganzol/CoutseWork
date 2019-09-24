@@ -1,4 +1,4 @@
-package sample.dao;
+package sample.repositories;
 
 import sample.exceptions.UserAlreadyExistsException;
 import sample.models.Student;
@@ -8,14 +8,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Этот класс (dao: Data Access Object) позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
+ * Этот класс позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
  * и позволяет работать сервисам напрямую с объектами сущности (Student)
  */
-public class StudentDao {
+public class StudentRepository {
     private FileWriter writer;
     String path = "students.txt";
 
-    public StudentDao(){
+    public StudentRepository(){
     }
 
     public Student getStudentByLogin(String login){

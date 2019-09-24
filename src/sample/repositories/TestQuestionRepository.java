@@ -1,18 +1,18 @@
-package sample.dao;
+package sample.repositories;
 
 import sample.models.Question;
 
 import java.io.*;
 /**
- * Этот класс (dao: Data Access Object) позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
+ * Этот класс позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
  * и позволяет работать сервисам напрямую с объектами сущности (Question)
  */
-public class TestQuestionDao {
+public class TestQuestionRepository {
     private FileInputStream inputStream;
     private BufferedReader br;
     private FileWriter writer;
 
-    public TestQuestionDao() {
+    public TestQuestionRepository() {
         try {
             inputStream = new FileInputStream("questions.txt");
             br = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));

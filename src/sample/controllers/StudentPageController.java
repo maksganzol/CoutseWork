@@ -69,6 +69,8 @@ public class StudentPageController {
     }
 
     public void startStudying() throws IOException {
+        if(startbutton.getText().equals("Начать просмотр"))
+            studentService.start();
         startbutton.setText("След. раздел");
         if(service.isLastPortionInMaterial()) {
             showTotalPage(student, studentService);
@@ -76,7 +78,7 @@ public class StudentPageController {
             String portion = service.getPortionOfMaterial();
             String title = service.getCurrentTitle();
             titleLabel.setText(title);
-            if (service.isLastPortionInTopic(portion)) {
+            if (service.isEndTopic()) {
                 try {
                     tests(title);
                 } catch (IOException e) {
@@ -98,8 +100,10 @@ public class StudentPageController {
     }
 
     private void showTotalPage(Student student, StudentService service) throws IOException {
+        studentService.finish();
         area.setVisible(false);
         startbutton.setVisible(false);
+        studentService.addStudentToJournal(student);//Ниидс тестс
         total.setText(studentService.getTotalStatement(student));
     }
 

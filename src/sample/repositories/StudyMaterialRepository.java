@@ -1,4 +1,4 @@
-package sample.dao;
+package sample.repositories;
 
 
 import sample.models.Material;
@@ -10,15 +10,15 @@ import java.nio.file.Paths;
 import java.util.*;
 
 /**
- * Этот класс (dao: Data Access Object) позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
+ * Этот класс позволяет абсрагироваться от работы с хранилищем данных (файлом данных)
  * и позволяет работать сервисам напрямую с объектами сущности (StudyMaterial)
  */
-public class StudyMaterialDao {
+public class StudyMaterialRepository {
 
     private FileWriter writer;
     String path = "study_material.txt";
 
-    public StudyMaterialDao() {
+    public StudyMaterialRepository() {
 
     }
 

@@ -1,7 +1,7 @@
 package sample.services;
 
-import sample.dao.StudyMaterialDao;
-import sample.dao.TestQuestionDao;
+import sample.repositories.StudyMaterialRepository;
+import sample.repositories.TestQuestionRepository;
 import sample.models.Question;
 
 /**
@@ -10,19 +10,19 @@ import sample.models.Question;
  */
 public class MaterialInputService {
 
-    private StudyMaterialDao studyMaterialDao;
-    private TestQuestionDao testQuestionDao;
+    private StudyMaterialRepository studyMaterialRepository;
+    private TestQuestionRepository testQuestionRepository;
 
     public MaterialInputService() {
-        studyMaterialDao = new StudyMaterialDao();
-        testQuestionDao = new TestQuestionDao();
+        studyMaterialRepository = new StudyMaterialRepository();
+        testQuestionRepository = new TestQuestionRepository();
     }
 
     public void addQuestion(Question question){
-        testQuestionDao.addQuestion(question);
+        testQuestionRepository.addQuestion(question);
     }
 
     public void addPortionOfMaterial(String title, String content){
-        studyMaterialDao.addPortionOfMaterial(title, content);
+        studyMaterialRepository.addPortionOfMaterial(title, content);
     }
 }

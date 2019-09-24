@@ -1,26 +1,25 @@
 package sample.services;
 
-import sample.dao.StudyMaterialDao;
+import sample.repositories.StudyMaterialRepository;
 import sample.models.Material;
 import sample.models.StudyMaterial;
-
-import java.util.Set;
 
 /**
  * Этот класс занимается предоставлением учебного материала
  */
 public class StudyMaterialsService {
 
-    private StudyMaterialDao dao;
+    private StudyMaterialRepository repository;
     private StudyMaterial studyMaterial;
     private Material currentMaterial;
     private int titleCounter = 0;
     private int portionCounter = 0;//Счетчик считает, какую порцию материала выдавать
     private boolean isLastPortionInMaterial = false;
+    private boolean endTopic = false;
 
     public StudyMaterialsService() {
-        dao = new StudyMaterialDao();
-        studyMaterial = dao.getMaterial();
+        repository = new StudyMaterialRepository();
+        studyMaterial = repository.getMaterial();
         currentMaterial = studyMaterial.getMaterial(titleCounter);
     }
 
@@ -41,17 +40,21 @@ public class StudyMaterialsService {
                 titleCounter++;
                 currentMaterial = studyMaterial.getMaterial(titleCounter);
                 portionCounter = 0;
+                endTopic = true;
             } else {
                 portionCounter = currentMaterial.size()-1;
                 isLastPortionInMaterial = true;
+                endTopic = true;
             }
 
+        } else {
+            endTopic = false;
         }
         return currentMaterial;
     }
 
-    public boolean isLastPortionInTopic(String portion){
-        return currentMaterial.isLast(portion);
+    public boolean isEndTopic(){
+        return endTopic;
     }
 
     public String getPortionOfMaterial(){

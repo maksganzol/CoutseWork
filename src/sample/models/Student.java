@@ -1,5 +1,7 @@
 package sample.models;
 
+import java.util.Objects;
+
 public class Student {
     private String login, password, name, lastName;
     private int totalMark = 0;
@@ -25,6 +27,10 @@ public class Student {
     public Student(String login, String password) {
         this.login = login;
         this.password = password;
+    }
+
+    public void setTotalMark(int totalMark) {
+        this.totalMark = totalMark;
     }
 
     public String getLogin() {
@@ -68,5 +74,18 @@ public class Student {
                 ", lastName='" + lastName + '\'' +
                 ", totalMark=" + totalMark +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return login.equals(student.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(login);
     }
 }
