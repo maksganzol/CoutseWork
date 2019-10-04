@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.*?>
 
 <GridPane alignment="CENTER" hgap="10.0" prefHeight="406.999977929685" prefWidth="497.9998779296875" vgap="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.MainController">
   <children>
@@ -23,7 +24,13 @@
         <PasswordField fx:id="tpassword" layoutX="283.0" layoutY="155.0" prefWidth="200.0" promptText="Пароль" visible="false" />
         <Button fx:id="loginbutton" layoutX="221.0" layoutY="295.0" mnemonicParsing="false" onAction="#logIn" text="Войти" visible="false" />
         <Label fx:id="warning" layoutX="278.0" layoutY="302.0" text="" textFill="RED" />
-        <Label fx:id="edit" layoutX="141.0" layoutY="322.0" onMouseClicked="#showMaterialInputPage" text="Редактировать учебный материал" textFill="#0029ff" />
+        <Button fx:id="stlist" focusTraversable="true" layoutX="31.0" layoutY="274.0" minHeight="9.9609375" mnemonicParsing="false" onAction="#showStudentList" prefHeight="20.961029052734375" prefWidth="119.0" text="Найти себя в списке" visible="false">
+          <font>
+            <Font size="10.0" />
+          </font>
+        </Button>
+        <RadioButton fx:id="unlogined" layoutX="130.0" layoutY="95.0" mnemonicParsing="false" selected="true" text="Не зарегестрирован" visible="false" />
+        <RadioButton fx:id="logined" layoutX="14.0" layoutY="95.0" mnemonicParsing="false" text="Зарегестирован" visible="false" />
       </children>
     </Pane>
   </children>

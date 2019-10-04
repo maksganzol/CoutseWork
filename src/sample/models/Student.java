@@ -1,10 +1,12 @@
 package sample.models;
 
-import java.util.Objects;
+import java.util.*;
 
 public class Student {
     private String login, password, name, lastName;
     private int totalMark = 0;
+    private Set<String> studiedTopics;
+    private long totalTime = 0;
 
     public int getTotalMark() {
         return totalMark;
@@ -14,7 +16,12 @@ public class Student {
         totalMark++;
     }
 
+    public void setStudiedTopics(Set<String> studiedTopics) {
+        this.studiedTopics = studiedTopics;
+    }
+
     public Student() {
+        studiedTopics = new HashSet<>();
     }
 
     public Student(String login, String password, String name, String lastName) {
@@ -22,11 +29,13 @@ public class Student {
         this.password = password;
         this.name = name;
         this.lastName = lastName;
+        studiedTopics = new HashSet<>();
     }
 
     public Student(String login, String password) {
         this.login = login;
         this.password = password;
+        studiedTopics = new HashSet<>();
     }
 
     public void setTotalMark(int totalMark) {
@@ -87,5 +96,25 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(login);
+    }
+
+    public Set<String> getStudiedTopics() {
+        return studiedTopics;
+    }
+
+    public void addStudiedTopic(String topic) {
+        studiedTopics.add(topic);
+    }
+
+    public long getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(long totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public void addTotalTime(long totalTime) {
+        this.totalTime += totalTime;
     }
 }

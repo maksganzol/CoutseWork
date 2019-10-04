@@ -6,21 +6,24 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import sample.exceptions.UserAlreadyExistsException;
+import sample.exceptions.UserNotFoundException;
 import sample.models.Student;
 import sample.models.Teacher;
 import sample.services.StudentService;
+import sample.services.StudyMaterialsService;
 import sample.services.TeacherService;
+import sample.services.TestQuestionService;
 
 
 public class MainController {
@@ -30,6 +33,9 @@ public class MainController {
 
     @FXML
     private ResourceBundle resources;
+
+    @FXML
+    private Label loginLabel;
 
     @FXML
     private URL location;
@@ -61,22 +67,43 @@ public class MainController {
     @FXML
     private Button asteacher;
 
+    @FXML
+    private Button stlist;
+
+    @FXML
+    private RadioButton logined, unlogined;
+
     private boolean asStudent, asTeacher;
     private StudentService studentService;
     private TeacherService teacherService;
+    private ToggleGroup group;
 
     @FXML
     private Label edit;
 
     @FXML
     void initialize() {
+        group = new ToggleGroup();
+        unlogined.setToggleGroup(group);
+        logined.setToggleGroup(group);
 
         teacherService = new TeacherService();
         studentService = new StudentService();
 
+        logined.setOnAction(e ->{
+            stlastname.setVisible(false);
+            stname.setVisible(false);
+        });
+
+        unlogined.setOnAction(e ->{
+            stlastname.setVisible(true);
+            stname.setVisible(true);
+        });
+
     }
 
     public void asStudent(){
+        stlist.setVisible(true);
         loginbutton.setVisible(true);
         asStudent = true;
         asTeacher = false;
@@ -87,6 +114,9 @@ public class MainController {
         stlastname.setVisible(true);
         stlogin.setVisible(true);
         stpassword.setVisible(true);
+
+        logined.setVisible(true);
+        unlogined.setVisible(true);
     }
 
     public void asTeacher(){
@@ -100,36 +130,58 @@ public class MainController {
         stlastname.setVisible(false);
         stlogin.setVisible(false);
         stpassword.setVisible(false);
+
+        logined.setVisible(false);
+        unlogined.setVisible(false);
     }
 
-    public void logIn(){
+    public void logIn() throws IOException {
         if(asStudent) {
             Student student = new Student();
 
-            String name = stname.getText();
-            String lastName = stlastname.getText();
-            String login = stlogin.getText();
-            String password = stpassword.getText();
-            if(!(name.equals("")||lastName.equals("")||login.equals("")||password.equals(""))) {
-                student.setName(name);
-                student.setLastName(lastName);
-                student.setLogin(login);
-                student.setPassword(password);
+            if (logined.isSelected()) {
+                String login = stlogin.getText();
+                String password = stpassword.getText();
+                if (!(login.equals("") || password.equals(""))) {
+                    Student st = studentService.getStudent(login);
+                    if (st != null)
+                        if (st.getPassword().equals(password)) {
+                            loginbutton.getScene().getWindow().hide();
+                            showStudentPage(st, studentService);
+                        }
+                }
+
             } else {
-                warning.setText("Fields can't be empty");
-                return;
-            }
 
-            try {
-                studentService.addStudent(student);
-                this.loginbutton.getScene().getWindow().hide();
-                this.showStudentPage(student, studentService);
+                String name = stname.getText();
+                String lastName = stlastname.getText();
+                String login = stlogin.getText();
+                String password = stpassword.getText();
+                if (!(name.equals("") || lastName.equals("") || login.equals("") || password.equals(""))) {
+                    student.setName(name);
+                    student.setLastName(lastName);
+                    student.setLogin(login);
+                    student.setPassword(password);
+                } else {
+                    warning.setText("Fields can't be empty");
+                    return;
+                }
 
-            } catch (UserAlreadyExistsException e) {
-                System.out.println(e.getMessage());
-                stlogin.setText("");
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    studentService.addStudent(student);
+                    ((Stage) loginbutton.getScene().getWindow()).close();
+                    this.showStudentPage(student, studentService);
+
+                } catch (UserAlreadyExistsException e) {
+                    System.out.println(e.getMessage());
+                    stlogin.setText("");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (UserNotFoundException e) {
+                    System.out.println(e.getMessage());
+                    stname.setText("");
+                    stlastname.setText("");
+                }
             }
         }
         else {
@@ -141,8 +193,8 @@ public class MainController {
 
             if(teacherService.authorized(teacher)) {
                 try {
-                    this.loginbutton.getScene().getWindow().hide();
-                    this.showTeacherPage(teacher);
+                    loginbutton.getScene().getWindow().hide();
+                    showTeacherPage(teacher);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -159,28 +211,31 @@ public class MainController {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         TeacherPageController controller = (TeacherPageController)loader.getController();
-        controller.initData(teacher);
+        controller.initData(teacher, new TestQuestionService());
         stage.showAndWait();
         return stage;
     }
 
-    private Stage showStudentPage(Student student, StudentService service) throws IOException {
+    public Stage showStudentList() throws IOException {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/studentlist.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene((Pane)loader.load()));
+        StudentListController controller = (StudentListController) loader.getController();
+        controller.initData(studentService, stname, stlastname);
+        stage.showAndWait();
+        return stage;
+    }
+
+
+    private Stage showStudentPage(Student st, StudentService studentService) throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/studentpage.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         StudentPageController controller = (StudentPageController)loader.getController();
-        controller.initData(student, service);
+        controller.initData(st, studentService, new StudyMaterialsService());
         stage.showAndWait();
         return stage;
     }
 
-    public Stage showMaterialInputPage() throws IOException {
-        loginbutton.getScene().getWindow().hide();
-        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/materialinput.fxml"));
-        Stage stage = new Stage(StageStyle.DECORATED);
-        stage.setScene(new Scene((Pane)loader.load()));
-        MaterialInputPageController controller = (MaterialInputPageController)loader.getController();
-        stage.showAndWait();
-        return stage;
-    }
+
 }

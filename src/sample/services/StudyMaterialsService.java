@@ -4,63 +4,34 @@ import sample.repositories.StudyMaterialRepository;
 import sample.models.Material;
 import sample.models.StudyMaterial;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Этот класс занимается предоставлением учебного материала
  */
 public class StudyMaterialsService {
-
     private StudyMaterialRepository repository;
     private StudyMaterial studyMaterial;
-    private Material currentMaterial;
-    private int titleCounter = 0;
+    private boolean isLast = false;
+
     private int portionCounter = 0;//Счетчик считает, какую порцию материала выдавать
-    private boolean isLastPortionInMaterial = false;
-    private boolean endTopic = false;
+
 
     public StudyMaterialsService() {
         repository = new StudyMaterialRepository();
         studyMaterial = repository.getMaterial();
-        currentMaterial = studyMaterial.getMaterial(titleCounter);
     }
 
-    public boolean isLastPortionInMaterial() {
-        return isLastPortionInMaterial;
-    }
 
-    public StudyMaterial getStudyMaterials(){
-        return studyMaterial;
-    }
+    public String getPortionOfMaterial(String title){
 
-    public Material getMaterial(){
-        currentMaterial = studyMaterial.getMaterial(titleCounter);
-        //Если порция последняя в теме,
-        if(currentMaterial.size()<=portionCounter){
-            //и тема не последняя, то меняем ее.
-            if(studyMaterial.getSize()-1>titleCounter) {
-                titleCounter++;
-                currentMaterial = studyMaterial.getMaterial(titleCounter);
-                portionCounter = 0;
-                endTopic = true;
-            } else {
-                portionCounter = currentMaterial.size()-1;
-                isLastPortionInMaterial = true;
-                endTopic = true;
-            }
-
-        } else {
-            endTopic = false;
+        String portion = studyMaterial.getPortionByTitle(title, portionCounter);
+        if(portionCounter<studyMaterial.getCountOfPortion(title)-1) {
+            portionCounter++;
+            isLast = false;
         }
-        return currentMaterial;
-    }
-
-    public boolean isEndTopic(){
-        return endTopic;
-    }
-
-    public String getPortionOfMaterial(){
-
-        String portion = getMaterial().getPortion(portionCounter);
-        portionCounter++;
+        else isLast = true;
 
         return portion;
     }
@@ -73,15 +44,29 @@ public class StudyMaterialsService {
         return portionCounter+1;
     }
 
+    public void resetCounter(){
+        portionCounter = 0;
+        isLast = false;
+    }
 
-    public void prev(){//Возвращает счетчик на предыдущую порцию материала
+
+    public String getPrevPortion(String title){//Возвращает счетчик на предыдущую порцию материала
         if (portionCounter>0){
             portionCounter--;
+            isLast = false;
         }
+        return studyMaterial.getPortionByTitle(title, portionCounter);
     }
 
-    public String getCurrentTitle(){
-        return currentMaterial.getTitle();
+    public List<String> getAllTitles() {
+        List<String> titles = new ArrayList<>();
+        for(int i = 0; i < repository.getMaterial().getSize(); i++){
+            titles.add(repository.getMaterial().getMaterial(i).getTitle());
+        }
+        return titles;
     }
 
+    public boolean isLastPortionInMaterial() {
+        return isLast;
+    }
 }

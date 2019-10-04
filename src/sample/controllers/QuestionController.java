@@ -53,6 +53,7 @@ public class QuestionController {
     private Question currentQuestion;
     private int count = 0;
     private Student student;
+    private StudentService studentService;
 
 
     @FXML
@@ -87,9 +88,11 @@ public class QuestionController {
 
     public void initData(Student student, String theme, StudentService studentService) {
         this.student = student;
+        this.student.addStudiedTopic(theme);
         service = new TestQuestionService();
         questions = service.getByTheme(theme);
         currentQuestion = new Question();
+        this.studentService = studentService;
     }
 
     public boolean isCorrectAnsw(RadioButton... button){ //Проверяет верный ли ответ среди всех радиобаттонов
@@ -144,6 +147,7 @@ public class QuestionController {
     public void finish(){
         startbutton.getScene().getWindow().hide();
         System.out.println(student);
+        studentService.updateStudent(student);
     }
 
 

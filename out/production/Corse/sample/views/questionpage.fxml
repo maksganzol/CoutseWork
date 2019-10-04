@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.QuestionController">
   <children>
-    <Label id="hello" fx:id="question" layoutX="25.0" layoutY="109.0" prefWidth="192.0" text="">
+    <Label id="hello" fx:id="question" layoutX="25.0" layoutY="109.0" prefWidth="550.0" text="">
       <font>
         <Font size="14.0" />
       </font>
@@ -19,6 +19,6 @@
     <RadioButton fx:id="radio3" layoutX="46.0" layoutY="164.0" mnemonicParsing="false" text="" />
     <RadioButton fx:id="radio2" layoutX="46.0" layoutY="200.0" mnemonicParsing="false" text="" />
     <RadioButton fx:id="radio1" layoutX="46.0" layoutY="234.0" mnemonicParsing="false" text="" />
-    <Button fx:id="finish" onAction="#finish" layoutX="488.0" layoutY="279.0" mnemonicParsing="false" text="Закончить" visible="false" />
+    <Button fx:id="finish" layoutX="488.0" layoutY="279.0" mnemonicParsing="false" onAction="#finish" text="Закончить" visible="false" />
   </children>
 </AnchorPane>

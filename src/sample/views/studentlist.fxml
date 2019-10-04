@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="448.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.StudentListController">
+  <children>
+    <Label layoutX="18.0" layoutY="13.0" text="Список студентов, для которых предназначен учебный материал">
+      <font>
+        <Font size="14.0" />
+      </font>
+    </Label>
+    <ListView fx:id="stlist" layoutX="37.0" layoutY="46.0" prefHeight="340.0" prefWidth="384.0" />
+  </children>
+</AnchorPane>

@@ -7,11 +7,11 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.StudentPageController">
+<AnchorPane id="AnchorPane" fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="626.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="sample.controllers.StudentPageController">
   <children>
     <Label fx:id="hello" layoutX="25.0" layoutY="24.0" text="" />
-    <Button fx:id="startbutton" layoutX="25.0" layoutY="53.0" mnemonicParsing="false" onAction="#startStudying" text="Начать просмотр" />
-    <TextArea fx:id="area" disable="true" layoutX="26.0" layoutY="94.0" prefHeight="226.0" prefWidth="519.0" wrapText="true" />
+    <Button fx:id="startbutton" layoutX="184.0" layoutY="64.0" mnemonicParsing="false" onAction="#startStudying" text="Начать просмотр" visible="false" />
+    <TextArea fx:id="area" disable="true" layoutX="184.0" layoutY="94.0" prefHeight="226.0" prefWidth="361.0" visible="false" wrapText="true" />
     <Label fx:id="pages" layoutX="517.0" layoutY="52.0" text="" />
     <Label fx:id="totalMark" layoutX="481.0" layoutY="57.0" prefWidth="50.0" text="">
       <font>
@@ -23,6 +23,10 @@
         <Font size="20.0" />
       </font>
     </Label>
-    <Label fx:id="titleLabel" font="$x1" layoutX="250.0" layoutY="57.0" text="" />
+    <Label fx:id="titleLabel" font="$x1" layoutX="396.0" layoutY="10.0" prefWidth="170.0" text="" />
+    <Button fx:id="prev" layoutX="313.0" layoutY="64.0" mnemonicParsing="false" onAction="#prev" text="Пред." visible="false" />
+    <ListView fx:id="listView" layoutX="9.0" layoutY="96.0" prefHeight="224.0" prefWidth="170.0" visible="false" />
+    <Label font="$x1" layoutX="9.0" layoutY="64.0" prefWidth="60.0" text="Темы" />
+    <Button fx:id="start" layoutX="257.0" layoutY="32.0" mnemonicParsing="false" onAction="#start" text="Начать обучение" />
   </children>
 </AnchorPane>

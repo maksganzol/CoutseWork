@@ -26,4 +26,8 @@ public class Teacher {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean isAdmin(){
+        return login.equals("admin");
+    }
 }
