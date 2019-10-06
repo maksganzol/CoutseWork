@@ -1,6 +1,7 @@
 package sample.controllers;
 
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,10 +11,14 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -33,6 +38,8 @@ public class StudentPageController {
 
     @FXML
     private Label totalMark;
+    @FXML
+    private Label themes;
 
     @FXML
     private Label pages;
@@ -53,6 +60,10 @@ public class StudentPageController {
     @FXML
     private Button start;
     @FXML
+    private Button back;
+    @FXML
+    private Button totalButton;
+    @FXML
     private ListView<String> listView;
 
     @FXML
@@ -65,6 +76,7 @@ public class StudentPageController {
     private String title;
     private List<String> titlesList;
     private boolean logOut = false;
+    private Stage prevStage;
 
 
     @FXML
@@ -86,18 +98,24 @@ public class StudentPageController {
             studentService.start();
             logOut = true;
             start.setText("Выйти");
+            if(student.getStudiedTopics().size()>=service.getAllTitles().size()) {
+                themes.setText("Вы прошли все темы, теперь вы можете получить общую оценку");
+                totalButton.setVisible(true);
+            }
+            else themes.setText("Темы");
         }
     }
 
-    void initData(Student student, StudentService service, StudyMaterialsService studyService){
-        ((Stage)start.getScene().getWindow()).initStyle(StageStyle.UNDECORATED);
+    void initData(Student student, StudentService service, StudyMaterialsService studyService, Stage window){
+        prevStage = window;
+        ((Stage)start.getScene().getWindow()).setOnCloseRequest(Event::consume);
         hello.setText("Привет, " + student.getName());
         this.student = student;
         this.studentService = service;
         this.service = studyService;
         titlesList = studyService.getAllTitles();
         student.getStudiedTopics().forEach(title ->{
-            titlesList.remove(title);
+            titlesList.remove(title); //Удаляем из списка темы, которые студент уже прошел
         });
         ObservableList<String> titles = FXCollections.observableArrayList(titlesList);
         listView.setItems(titles);
@@ -139,6 +157,13 @@ public class StudentPageController {
                 //Возвращаем материал
                 area.setVisible(true);
                 titleLabel.setText(title);
+                if(student.getStudiedTopics().size()>=service.getAllTitles().size()) {
+                    themes.setText("Вы прошли все темы, теперь вы можете получить общую оценку");
+                    startbutton.setVisible(false);
+                    prev.setVisible(false);
+                    totalButton.setVisible(true);
+                }
+
             }
             area.setText(service.getPortionOfMaterial(title));
             if(service.isLastPortionInMaterial())
@@ -161,13 +186,17 @@ public class StudentPageController {
         return stage;
     }
 
-    private void showTotalPage(Student student, StudentService service) throws IOException {
+    public void total() throws IOException {
         area.setVisible(false);
-
-        startbutton.setVisible(false);
-        studentService.addStudentToJournal(student);
+        listView.setVisible(false);
+        hello.setText("Общее время: " + student.getTotalTime());
         total.setText(studentService.getTotalStatement(student));
+        themes.setText("");
     }
 
+    public void back(){
+        startbutton.getScene().getWindow().hide();
+        prevStage.show();
+    }
 
 }

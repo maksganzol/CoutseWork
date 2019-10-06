@@ -66,12 +66,15 @@ public class TeacherPageController {
 
     @FXML
     private Button add;
+    @FXML
+    private Button back;
 
     private TeacherService teacherService;
     private StudentService studentService;
     private StudyMaterialsService materialsService;
     private Teacher teacher;
     private TestQuestionService questionService;
+    private Stage stage;
 
 
     @FXML
@@ -81,7 +84,8 @@ public class TeacherPageController {
         materialsService = new StudyMaterialsService();
     }
 
-    public void initData(Teacher teacher, TestQuestionService questionService) {
+    public void initData(Teacher teacher, TestQuestionService questionService, Stage stage) {
+        this.stage = stage;
         this.teacher = teacher;
         this.questionService = questionService;
     }
@@ -129,6 +133,7 @@ public class TeacherPageController {
         students.setVisible(false);
         all.setVisible(false);
         one.setVisible(false);
+        initials.setVisible(false);
 
         name.setVisible(true);
         lastName.setVisible(true);
@@ -153,14 +158,18 @@ public class TeacherPageController {
             showQuestionWatchingPage();
 
     }
-    public Stage showQuestionWatchingPage() throws IOException {
+    private void showQuestionWatchingPage() throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/questionwatching.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         QuestionWatchingController controller = (QuestionWatchingController) loader.getController();
         controller.initData(questionService);
         stage.showAndWait();
-        return stage;
+    }
+    
+    public void back(){
+        back.getScene().getWindow().hide();
+        stage.show();
     }
 
 }

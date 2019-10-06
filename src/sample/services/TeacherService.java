@@ -1,6 +1,5 @@
 package sample.services;
 
-import sample.repositories.StudentMarkRepository;
 import sample.repositories.StudentRepository;
 import sample.repositories.TeacherRepository;
 import sample.exceptions.UserAlreadyExistsException;

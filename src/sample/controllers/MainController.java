@@ -206,35 +206,32 @@ public class MainController {
         }
     }
 
-    private Stage showTeacherPage(Teacher teacher) throws IOException {
+    private void showTeacherPage(Teacher teacher) throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/teacherpage.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         TeacherPageController controller = (TeacherPageController)loader.getController();
-        controller.initData(teacher, new TestQuestionService());
+        controller.initData(teacher, new TestQuestionService(), (Stage) loginbutton.getScene().getWindow());
         stage.showAndWait();
-        return stage;
     }
 
-    public Stage showStudentList() throws IOException {
+    public void showStudentList() throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/studentlist.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         StudentListController controller = (StudentListController) loader.getController();
         controller.initData(studentService, stname, stlastname);
         stage.showAndWait();
-        return stage;
     }
 
 
-    private Stage showStudentPage(Student st, StudentService studentService) throws IOException {
+    private void showStudentPage(Student st, StudentService studentService) throws IOException {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("../views/studentpage.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane)loader.load()));
         StudentPageController controller = (StudentPageController)loader.getController();
-        controller.initData(st, studentService, new StudyMaterialsService());
+        controller.initData(st, studentService, new StudyMaterialsService(), (Stage) loginbutton.getScene().getWindow());
         stage.showAndWait();
-        return stage;
     }
 
 

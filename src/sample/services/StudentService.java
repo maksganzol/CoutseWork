@@ -2,7 +2,6 @@ package sample.services;
 
 import sample.exceptions.UserNotFoundException;
 import sample.repositories.StudentRepository;
-import sample.repositories.StudentMarkRepository;
 import sample.exceptions.UserAlreadyExistsException;
 import sample.models.Student;
 
@@ -13,13 +12,11 @@ import java.util.List;
  */
 public class StudentService {
     private StudentRepository repository;
-    private StudentMarkRepository markRepository;
     private Long startStudying = 0L;
     private Long finishStudying = 0L;
 
     public StudentService() {
         repository = new StudentRepository();
-        markRepository = new StudentMarkRepository();
     }
 
     public Student getStudent(String login){
@@ -50,10 +47,9 @@ public class StudentService {
     }
 
     public String getTotalStatement(Student student){
-        for(Student st: markRepository.getAll()) {
+        for(Student st: repository.getAll()) {
             if(st.equals(student))
-                return student.getName() + " " + student.getLastName() + " - total mark: " + student.getTotalMark() +
-                        ". Total time: " + getTotalTime() + "mls";
+                return student.getName() + " " + student.getLastName() + " - общий балл: " + student.getTotalMark();
         }
         return "Not found";
     }
@@ -68,10 +64,6 @@ public class StudentService {
 
     public void finish(){
         finishStudying = System.currentTimeMillis();
-    }
-
-    public void addStudentToJournal(Student student) {
-        markRepository.addStudent(student);
     }
 
     public List<Student> getAll(){
